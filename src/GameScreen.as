@@ -16,7 +16,7 @@ public class GameScreen extends Screen
   public static const NAME:String = "GameScreen";
   
   // bitmap font:
-  [Embed(source="../assets/pc8001font_raster.png")]
+  [Embed(source="../assets/pc8001font.png")]
   private static const N80FontImageCls:Class;
   private static const n80fontimage:Bitmap = new N80FontImageCls();
   // point sound
@@ -56,7 +56,9 @@ public class GameScreen extends Screen
     _caption.width = width;
     _caption.height = 56;
     _caption.y = height-_caption.height;
-    _screen = new TextScreen(40, 25, 16, 16, n80fontimage.bitmapData)
+    _screen = new TextScreen(40, 25, 8, 8, n80fontimage.bitmapData);
+    _screen.width = width;
+    _screen.height = height;
   }
 
   // open()
@@ -79,7 +81,7 @@ public class GameScreen extends Screen
     _channel = null;
     switch (state) {
     case 0:
-      _screen.fill(0, 0, -1, -1, 32, SNOW);
+      _screen.fill(0, 0, -1, -1, _screen.BLANK, SNOW);
       _screen.print(3, 4, 
 		    [
 [0xe4,0x87,0x87,0xe5,0x20,0x87,0x20,0xe4,0xe7,0x20,0x87,0x87,0x87],
@@ -105,7 +107,7 @@ public class GameScreen extends Screen
       _score = 0;
       _caption.textColor = 0x000000;
       _caption.text = "";
-      _screen.fill(0,0,-1,-1,32,SNOW);
+      _screen.fill(0,0,-1,-1,_screen.BLANK,SNOW);
       break;
 
     case 2:
@@ -158,7 +160,7 @@ public class GameScreen extends Screen
 
   private function update_game():void
   {
-    _screen.scroll(0, -1, 32, SNOW);
+    _screen.scroll(0, -1, _screen.BLANK, SNOW);
     
     var x:int, c:int;
 
@@ -167,7 +169,7 @@ public class GameScreen extends Screen
       _channel = PointSound.play();
       _channel.addEventListener(Event.SOUND_COMPLETE, soundComplete1);
       _score++;
-    } else if (c != 32) {
+    } else if (c != _screen.BLANK) {
       _channel = DieSound.play();
       _channel.addEventListener(Event.SOUND_COMPLETE, soundComplete2);
       return;
