@@ -1,7 +1,9 @@
 package {
 
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.display.Bitmap;
+import flash.display.BitmapData;
 import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.text.TextField;
@@ -34,6 +36,7 @@ public class GameScreen extends Screen
   private var _vx:int, _vy:int;
   private var _screen:TextScreen;
   private var _caption:TextField;
+  private var _raster:Shape;
   private var _channel:SoundChannel;
   private var _count:int;
 
@@ -59,12 +62,20 @@ public class GameScreen extends Screen
     _screen = new TextScreen(40, 25, 8, 8, n80fontimage.bitmapData);
     _screen.width = width;
     _screen.height = height;
+
+    var mask:BitmapData = new BitmapData(1, 2, true, 0x0000000);
+    mask.setPixel32(0, 0, 0xff000000);
+    _raster = new Shape();
+    _raster.graphics.beginBitmapFill(mask);
+    _raster.graphics.drawRect(0, 0, width, height);
+    _raster.graphics.endFill();
   }
 
   // open()
   public override function open():void
   {
     addChild(_screen);
+    addChild(_raster);
     addChild(_caption);
     init_state(0);
   }
@@ -73,6 +84,7 @@ public class GameScreen extends Screen
   public override function close():void
   {
     removeChild(_caption);
+    removeChild(_raster);
     removeChild(_screen);
   }
 
@@ -97,7 +109,7 @@ public class GameScreen extends Screen
       _screen.print(10, 18, [[0xbd,0xcd,0xdf,0xb0,0xbd,0xb7,0xb0,0x20,0xa6,0x20,
 			      0xb5,0xbc,0xc3,0xb8,0xc0,0xde,0xbb,0xb2]], TITLE2);
       _screen.print(10, 24, [[0x31,0x39,0x38,0x33,0x20,0x59,0x75,0x73,0x75,0x6b,0x65,0x20,0x53,0x68,0x69,0x6e,0x79,0x61,0x6d,0x61,0x20,0x4d,0x69,0x6e,0x69,0x4c,0x44,0x20,0x34,0x37]], TITLE2);
-      _caption.textColor = 0x000000;
+      _caption.textColor = 0x0000ff;
       _caption.text = "Ski Game. Press Space Key.";
       break;
 
