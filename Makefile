@@ -5,7 +5,7 @@ CP=cp -f
 CHMOD=chmod
 RSYNC=rsync -av
 JAVA=java
-FLEX_HOME=../flex_sdk4
+FLEX_HOME=../../flex_sdk4
 MXMLC=$(JAVA) -jar $(FLEX_HOME)/lib/mxmlc.jar +flexlib=$(FLEX_HOME)/frameworks
 FONTSWF=$(JAVA) -jar $(FLEX_HOME)/lib/flex-fontkit.jar
 FDB=$(JAVA) -jar $(FLEX_HOME)/lib/fdb.jar

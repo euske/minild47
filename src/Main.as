@@ -126,12 +126,7 @@ public class Main extends Sprite
     if (_keydown == e.keyCode) return;
     _keydown = e.keyCode;
     switch (e.keyCode) {
-    case 80:			// P
-      setPauseState(!_paused);
-      break;
-
     case Keyboard.ESCAPE:	// Esc
-    case 81:			// Q
       init();
       break;
 

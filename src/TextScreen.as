@@ -71,13 +71,10 @@ public class TextScreen extends Bitmap
     return _char[y][x];
   }
 
-  public function print(x:int, y:int, a:Array, attr:int=0):void
+  public function print(x:int, y:int, s:String, attr:int=0):void
   {
-    for (var dy:int = 0; dy < a.length; dy++) {
-      var row:Array = a[dy];
-      for (var dx:int = 0; dx < row.length; dx++) {
-	putchar(x+dx, y+dy, row[dx], attr);
-      }
+    for (var i:int = 0; i < s.length; i++) {
+      putchar(x+i, y, s.charCodeAt(i), attr);
     }
   }
 
